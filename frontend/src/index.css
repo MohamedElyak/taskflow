@@ -1,0 +1,84 @@
+@import "tailwindcss";
+@import "@fontsource-variable/figtree";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --canvas: #f4f5f7;
+  --surface: #ffffff;
+  --sunken: #eceef2;
+  --line: #e1e4ea;
+  --ink: #151821;
+  --muted: #5b6272;
+  --accent: #3350f0;
+  --accent-hover: #2a42cc;
+  --accent-soft: #e7ebff;
+  --sidebar: #11131b;
+  --sidebar-ink: #b9bfce;
+}
+
+.dark {
+  --canvas: #0e1016;
+  --surface: #171a23;
+  --sunken: #1e222d;
+  --line: #2a2f3c;
+  --ink: #e8eaf0;
+  --muted: #9aa1b3;
+  --accent: #7b8dff;
+  --accent-hover: #95a3ff;
+  --accent-soft: #232a4d;
+  --sidebar: #0a0b10;
+  --sidebar-ink: #a7aebf;
+}
+
+@theme inline {
+  --font-sans: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-ink: var(--sidebar-ink);
+}
+
+html { color-scheme: light; }
+html.dark { color-scheme: dark; }
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Native <dialog> used for modals and the task drawer */
+dialog { background: transparent; color: inherit; padding: 0; border: 0; max-width: 100vw; max-height: 100dvh; }
+dialog::backdrop { background: rgb(10 12 20 / 0.5); animation: fade 0.15s ease-out; }
+dialog[open].dialog-center { animation: pop 0.16s ease-out; }
+dialog[open].dialog-drawer { animation: slide 0.2s ease-out; }
+
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pop { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes slide { from { transform: translateX(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.toast-in { animation: toast-in 0.18s ease-out; }
+.spin { animation: spin 0.8s linear infinite; }
+
+.kanban-scroll { scroll-snap-type: x proximity; }
+.kanban-col { scroll-snap-align: start; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
